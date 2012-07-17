@@ -1,0 +1,20 @@
+COMMON: &common
+  DEBUG: False
+  TESTING: False
+
+DEVELOPMENT: &development
+  <<: *common
+  DEBUG: True
+  DATABASE: 'development_db'
+
+STAGING: &staging
+  <<: *common
+  DATABASE: 'staging_db'
+
+PRODUCTION: &production
+  <<: *common
+  DATABASE: 'production_db'
+
+TESTING: &testing
+  <<: *common
+  DATABASE: 'testing_db'

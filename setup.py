@@ -21,7 +21,7 @@ setup(
     version='0.1',
     url='http://packages.python.org/flask-environments/',
     license='MIT',
-    author='Matt Wright',
+    author='Matthew Wright',
     author_email='matt@nobien.net',
     description='Environment tools and configuration for Flask applications',
     long_description=__doc__,

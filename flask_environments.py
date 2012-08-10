@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+"""
+    flask_environments
+    ~~~~~~~~~~~~~~~~~~
+
+    Environment tools and configuration for Flask applications
+
+    :copyright: (c) 2012 by Matt Wright.
+    :license: MIT, see LICENSE for more details.
+"""
 
 import os
 

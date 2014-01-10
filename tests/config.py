@@ -1,9 +1,4 @@
-
-
-class Config(object):
-    DEBUG = False
-    TESTING = False
-
+from flask.ext.environments import BaseConfig as Config
 
 class Development(Config):
     DEBUG = True

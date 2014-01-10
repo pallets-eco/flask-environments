@@ -13,6 +13,13 @@ import os
 
 import yaml
 from flask import current_app
+from werkzeug.utils import import_string
+from inspect import getmembers, isclass
+
+class BaseConfig(object):
+   """ Base Config class from which to subclass for which to derive from """
+   DEBUG = True
+   TESTING = True
 
 
 class Environments(object):
@@ -41,18 +48,34 @@ class Environments(object):
             return self.app
         return current_app
 
+    def get_available_configs(self, module):
+        try:
+            module = import_string(module)
+            return tuple(map(lambda c: (c[1], c[1].__name__.lower()),
+                             getmembers(module, lambda o: isclass(o) and issubclass(o, BaseConfig))))
+        except:
+            return ()
+
     def from_object(self, config_obj):
         app = self.get_app()
 
-        for name in self._possible_names():
+        config_obj_orig = module = config_obj
+        if '.' in config_obj: # module level
+            config_obj = config_obj.rsplit('.', 1)[1]
+
+        # try to import config objects within the config module
+        for config_klass, config_klass_name in self.get_available_configs(config_obj_orig):
             try:
-                obj = '%s.%s' % (config_obj, name)
-                app.config.from_object(obj)
-                return
+                name = "%s.%s" % (module, self.env.lower())
+                klass_name = "%s.%s" % (module, config_klass_name)
+                if name == klass_name:
+                    obj = '%s.%s' % (module, config_klass.__name__)
+                    app.config.from_object(obj)
+                    return
             except:
                 pass
 
-        app.config.from_object(config_obj)
+        app.config.from_object(config_obj_orig)
 
     def from_yaml(self, path):
         with open(path) as f:
@@ -71,4 +94,4 @@ class Environments(object):
                 app.config[key] = c[key]
 
     def _possible_names(self):
-        return (self.env, self.env.capitalize(), self.env.lower())
+        return (self.env, self.env.capitalize(), self.env.lower(), self.env.upper())

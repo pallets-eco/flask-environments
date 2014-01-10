@@ -40,9 +40,7 @@ or Yaml.
 
 Python::
 
-    class Config(object):
-        DEBUG = False
-        TESTING = False
+    from flask.ext.environments import BaseConfig as Config
 
     class Development(Config):
         DEBUG = True
@@ -69,10 +67,10 @@ Yaml::
 Next, create your application and initialize the Environments extensions::
 
     from flask import Flask
-    from flask_environments import Environments
+    from flask.ext.environments import Environments
 
     app = Flask(__name__)
-    env = Environments(self.app)
+    env = Environments(app)
 
 Then simply use the `from_object` method or the `from_yaml` method to load
 the configuration::
@@ -90,7 +88,7 @@ To change the default environment or the environment varibale name pass the `var
 or `default_env` parameters to the Environments constructor like so::
 
     from flask import Flask
-    from flask_environments import Environments
+    from flask.ext.environments import Environments
 
     app = Flask(__name__)
-    env = Environments(self.app, var_name='CUSTOM_VAR_NAME', default_env='CUSTOM_ENV')
+    env = Environments(app, var_name='CUSTOM_VAR_NAME', default_env='CUSTOM_ENV')

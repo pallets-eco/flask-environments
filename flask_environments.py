@@ -18,8 +18,8 @@ from inspect import getmembers, isclass
 
 class BaseConfig(object):
    """ Base Config class from which to subclass for which to derive from """
-   DEBUG = True
-   TESTING = True
+   DEBUG = False
+   TESTING = False
 
 
 class Environments(object):

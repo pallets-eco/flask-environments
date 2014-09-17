@@ -66,7 +66,7 @@ class Environments(object):
 
         app = self.get_app()
 
-        for key in c.iterkeys():
+        for key in c.keys():
             if key.isupper():
                 app.config[key] = c[key]
 

@@ -27,7 +27,7 @@ class Environments(object):
             self.init_app(app)
 
     def init_app(self, app):
-        app.config['ENVIORNMENT'] = self.env
+        app.config['ENVIRONMENT'] = self.env
 
         if app.extensions is None:
             app.extensions = {}
